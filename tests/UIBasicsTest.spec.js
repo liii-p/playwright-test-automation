@@ -46,7 +46,7 @@ test("UI Controls", async ({ page }) => {
   expect(await page.locator("#terms").isChecked()).toBeFalsy();
   await expect(blinkingLink).toHaveAttribute("class", "blinkingText");
 
-  await page.locator("#signInBtn").click();
+  //await page.locator("#signInBtn").click();
 
   //await page.pause();
 });
@@ -72,4 +72,14 @@ test("Child Windows Handling", async ({ browser }) => {
   await userName.type(domain);
   //await page.pause();
   //console.log(await userName.textContent());
+});
+
+test("Codegen Test", async ({ page }) => {
+  await page.goto("https://www.google.com/");
+  await page.getByRole("combobox", { name: "Search" }).click();
+  await page
+    .getByRole("combobox", { name: "Search" })
+    .fill("guardians of the galaxy");
+  await page.getByRole("combobox", { name: "Search" }).press("Enter");
+  await page.getByRole("tab", { name: "Cast" }).locator("span").first().click();
 });
