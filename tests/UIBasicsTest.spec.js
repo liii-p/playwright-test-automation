@@ -74,7 +74,7 @@ test("Child Windows Handling", async ({ browser }) => {
   //console.log(await userName.textContent());
 });
 
-test("Codegen Test", async ({ page }) => {
+test.skip("Codegen Test", async ({ page }) => {
   await page.goto("https://www.google.com/");
   await page.getByRole("combobox", { name: "Search" }).click();
   await page

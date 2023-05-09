@@ -1,6 +1,7 @@
 const { test, expect, request } = require("@playwright/test");
 
 const loginPayLoad = { userEmail: "li@gmail.com", userPassword: "Testing123!" };
+let token;
 
 test.beforeAll(async () => {
   const apiContext = await request.newContext();
@@ -19,15 +20,18 @@ test.beforeAll(async () => {
 test.beforeEach(() => {});
 
 test("Client App login", async ({ page }) => {
-  //js file- Login js, DashboardPage
-  const email = "li@gmail.com";
+  page.addInitScript((i) => {
+    window.localStorage.setItem("token", i);
+  }, token);
+
+  // await page.goto("https://rahulshettyacademy.com/client");
+  // await page.locator("#userEmail").fill(email);
+  // await page.locator("#userPassword").type("Testing123!");
+  // await page.locator("[value='Login']").click();
+  // await page.waitForLoadState("networkidle");
+  const email = "";
   const productName = "zara coat 3";
   const products = page.locator(".card-body");
-  await page.goto("https://rahulshettyacademy.com/client");
-  await page.locator("#userEmail").fill(email);
-  await page.locator("#userPassword").type("Testing123!");
-  await page.locator("[value='Login']").click();
-  await page.waitForLoadState("networkidle");
   const titles = await page.locator(".card-body b").allTextContents();
   console.log(titles);
   const count = await products.count();
