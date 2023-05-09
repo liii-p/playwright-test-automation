@@ -12,24 +12,24 @@ test.beforeAll(async () => {
     }
   );
   expect((await loginResponse).ok()).toBeTruthy();
-  const loginResponseJson = (await loginResponse).json();
-  const token = loginResponseJson.token;
+  const loginResponseJson = JSON.parse(await loginResponse.text());
+  token = loginResponseJson.token;
   console.log(token);
 });
 
 test.beforeEach(() => {});
 
 test("Client App login", async ({ page }) => {
-  page.addInitScript((i) => {
+  await page.addInitScript((i) => {
     window.localStorage.setItem("token", i);
   }, token);
 
-  // await page.goto("https://rahulshettyacademy.com/client");
+  await page.goto("https://rahulshettyacademy.com/client");
   // await page.locator("#userEmail").fill(email);
   // await page.locator("#userPassword").type("Testing123!");
   // await page.locator("[value='Login']").click();
   // await page.waitForLoadState("networkidle");
-  const email = "";
+  const email = "li@gmail.com";
   const productName = "zara coat 3";
   const products = page.locator(".card-body");
   const titles = await page.locator(".card-body b").allTextContents();
