@@ -1,12 +1,17 @@
 const { test, expect } = require("@playwright/test");
 
-test("Browser Context Error Login", async ({ browser }) => {
+test.only("Browser Context Error Login", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
+  page.route("**/*.{jpg, png, jpeg}", (route) => route.abort());
   const userName = page.locator("#username");
   const pass = page.locator("[type='password']");
   const signIn = page.locator("#signInBtn");
   const cardTitles = page.locator(".card-body a");
+  page.on("request", (request) => console.log(request.url()));
+  page.on("response", (response) =>
+    console.log(response.url(), response.status())
+  );
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   console.log(await page.title());
   await userName.type("rahulshetty");

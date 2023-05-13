@@ -1,28 +1,24 @@
 const { test, expect } = require("@playwright/test");
+let webContext;
 
-test("Get Product Title", async ({ page }) => {
-  await page.goto("https://rahulshettyacademy.com/client/");
-  const user = page.locator("[type='email']");
-  const pass = page.locator("[type='password']");
-  const signIn = page.locator("input#login");
-  await user.type("li@gmail.com");
-  await pass.type("Testing123!");
-  await signIn.click();
-  await page.waitForLoadState("networkidle");
-  console.log(await page.locator(".card-body b").first().textContent());
-  const titles = await page.locator(".card-body b").allTextContents();
-  console.log(titles);
-});
-
-test.skip("End to End Test", async ({ page }) => {
-  const email = "li@gmail.com";
-  const productName = "zara coat 3";
-  const products = page.locator(".card-body");
+test.beforeAll(async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
   await page.goto("https://rahulshettyacademy.com/client");
-  await page.locator("#userEmail").fill(email);
+  await page.locator("#userEmail").fill("li@gmail.com");
   await page.locator("#userPassword").type("Testing123!");
   await page.locator("[value='Login']").click();
   await page.waitForLoadState("networkidle");
+  await context.storageState({ path: "state.json" });
+  webContext = await browser.newContext({ storageState: "state.json" });
+});
+
+test("End to End Test", async () => {
+  const productName = "zara coat 3";
+  const email = "li@gmail.com";
+  const page = await webContext.newPage();
+  await page.goto("https://rahulshettyacademy.com/client");
+  const products = page.locator(".card-body");
   const titles = await page.locator(".card-body b").allTextContents();
   console.log(titles);
   const count = await products.count();
@@ -42,7 +38,7 @@ test.skip("End to End Test", async ({ page }) => {
   expect(bool).toBeTruthy();
   await page.locator("text=Checkout").click();
 
-  await page.locator("[placeholder*='Country']").type("aus", { delay: 100 });
+  await page.locator("[placeholder*='Country']").type("aus");
 
   const dropdown = page.locator(".ta-results");
   await dropdown.waitFor();
@@ -78,3 +74,15 @@ test.skip("End to End Test", async ({ page }) => {
   const orderIdDetails = await page.locator(".col-text").textContent();
   expect(orderId.includes(orderIdDetails)).toBeTruthy();
 });
+
+test("Test case 2", async () => {
+  const productName = "zara coat 3";
+  const page = await webContext.newPage();
+  await page.goto("https://rahulshettyacademy.com/client");
+  const products = page.locator(".card-body");
+  const titles = await page.locator(".card-body b").allTextContents();
+  console.log(titles);
+});
+
+//anotheremail@gmail.com
+//Password123!

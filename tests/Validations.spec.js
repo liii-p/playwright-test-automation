@@ -18,3 +18,19 @@ test("Popup validations", async ({ page }) => {
   await iframe.locator(".text h2").waitFor();
   await expect(iframe.locator("span[style*='color']")).toBeVisible();
 });
+
+test("Screenshot", async ({ page }) => {
+  await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+  await expect(page.locator("#displayed-text")).toBeVisible();
+  await page
+    .locator("#displayed-text")
+    .screenshot({ path: "focusScreenshot.png" });
+  await page.locator("#hide-textbox").click();
+  await page.screenshot({ path: "screenshot.png" });
+  await expect(page.locator("#displayed-text")).toBeHidden();
+});
+
+test.only("Visual", async ({ page }) => {
+  await page.goto("https://www.netflix.com/au/");
+  expect(await page.screenshot()).toMatchSnapshot("landing.png");
+});
