@@ -5,6 +5,9 @@ const { CartPage } = require("../pageobjects/CartPage");
 const { CheckoutPage } = require("../pageobjects/CheckoutPage");
 const { OrdersPage } = require("../pageobjects/OrdersPage");
 const { OrdersHistoryPage } = require("../pageobjects/OrdersHistoryPage");
+const data = JSON.parse(
+  JSON.stringify(require("../utils/placeorderTestData.json"))
+);
 
 test("Get Product Title", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/client/");
@@ -21,27 +24,24 @@ test("Get Product Title", async ({ page }) => {
 });
 
 test.only("End to End Test", async ({ page }) => {
-  const email = "li@gmail.com";
-  const password = "Testing123!";
-  const productName = "zara coat 3";
   const products = page.locator(".card-body");
   const loginPage = new LoginPage(page);
   await loginPage.goToPage();
-  await loginPage.validLogin(email, password);
+  await loginPage.validLogin(data.email, data.password);
 
   const dashboardPage = new DashboardPage(page);
   await dashboardPage.getProducts();
-  await dashboardPage.addProductToCart(productName);
+  await dashboardPage.addProductToCart(data.productName);
   await dashboardPage.goToCart();
 
-  const cartPage = new CartPage(page, expect, productName);
+  const cartPage = new CartPage(page, expect, data.productName);
   await cartPage.checkItems();
   await cartPage.goToCheckout();
 
   const checkoutPage = new CheckoutPage(page, expect);
   await checkoutPage.enterPersonalInfo("123", "James Bond");
   await checkoutPage.selectCountry("Australia");
-  await checkoutPage.checkEmailAndSubmit(email);
+  await checkoutPage.checkEmailAndSubmit(data.email);
 
   const ordersPage = new OrdersPage(page, expect);
   await ordersPage.confirmOrder();
