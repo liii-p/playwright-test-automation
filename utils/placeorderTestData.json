@@ -1,5 +1,13 @@
-{
-  "email": "li@gmail.com",
-  "password": "Testing123!",
-  "productName": "zara coat 3"
-}
+[
+  {
+    "email": "li@gmail.com",
+    "password": "Testing123!",
+    "productName": "zara coat 3"
+  },
+
+  {
+    "email": "anotheremail@gmail.com",
+    "password": "Password123!",
+    "productName": "adidas original"
+  }
+]

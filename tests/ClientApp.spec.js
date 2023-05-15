@@ -14,7 +14,7 @@ test("Get Product Title", async ({ page }) => {
   console.log(titles);
 });
 
-test.skip("End to End Test", async ({ page }) => {
+test("End to End Test", async ({ page }) => {
   const email = "li@gmail.com";
   const productName = "zara coat 3";
   const products = page.locator(".card-body");
