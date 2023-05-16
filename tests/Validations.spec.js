@@ -2,7 +2,7 @@ const { test, expect } = require("@playwright/test");
 
 //test.describe.configure({ mode: "parallel" });
 
-test("@Web Popup validations", async ({ page }) => {
+test(`@Web Popup validations`, async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
   //   await page.goto("https://google.com");
   //   await page.goBack();

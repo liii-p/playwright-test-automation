@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 
-test.only("@Web Browser Context Error Login", async ({ browser }) => {
+test("@Web Browser Context Error Login", async ({ browser }) => {
   const context = await browser.newContext();
   const page = await context.newPage();
   page.route("**/*.{jpg, png, jpeg}", (route) => route.abort());
@@ -35,7 +35,7 @@ test.only("@Web Browser Context Error Login", async ({ browser }) => {
   console.log(allTitles);
 });
 
-test("@Web UI Controls", async ({ page }) => {
+test(`@Web UI Controls`, async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
   const blinkingLink = page.locator("[href*='documents-request']");
   const dropdown = page.locator("select.form-control");
