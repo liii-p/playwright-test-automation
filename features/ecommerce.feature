@@ -9,7 +9,7 @@ Feature: Ecommerce Validations
 
 @Validation
  Scenario Outline: Placing the Order
-    Given I login to the Ecommerce2 application with "<username>" and "T<password>"
+    Given I login to the Ecommerce2 application with "<username>" and "<password>"
     Then verify error message is displayed
 
     Examples:
