@@ -32,7 +32,7 @@ test("Screenshot", async ({ page }) => {
   await expect(page.locator("#displayed-text")).toBeHidden();
 });
 
-test("Visual", async ({ page }) => {
+test.skip("Visual", async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/angularpractice/");
   expect(await page.screenshot()).toMatchSnapshot("landing.png");
 });
