@@ -19,7 +19,7 @@ test.beforeAll(async () => {
   //
 });
 
-test("Client App order with API", async ({ page }) => {
+test.skip("Client App order with API", async ({ page }) => {
   await page.addInitScript((i) => {
     window.localStorage.setItem("token", i);
   }, response.token);

@@ -33,6 +33,6 @@ test("Screenshot", async ({ page }) => {
 });
 
 test("Visual", async ({ page }) => {
-  await page.goto("https://playwright.dev/docs/intro");
+  await page.goto("https://rahulshettyacademy.com/angularpractice/");
   expect(await page.screenshot()).toMatchSnapshot("landing.png");
 });
